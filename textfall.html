@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Falling and Stacking Text with Matter.js</title>
+    <style>
+      body {
+        background: black;
+        margin: 0;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+      }
+
+      #letter-container {
+        position: relative;
+        width: 300px;
+        height: 400px;
+        overflow: hidden;
+        border: 2px solid white;
+      }
+
+      .falling-circle {
+        position: absolute;
+        background-color: transparent;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 50px;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      .falling-text {
+        position: relative;
+        z-index: 1;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="letter-container"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.17.1/matter.min.js"></script>
+    <script>
+      const letterSpeed = 2;
+      const container = document.getElementById('letter-container');
+      const spawnDuration = 2 * 1000; // 1 second
+
+      let startTime = Date.now();
+      let engine,
+        world,
+        render,
+        circles = [];
+      const letters = '123456789ABCDEFGHIJKLMNOP^&%(*!@£#;%?>)'; // Add more letters if needed
+
+      function createCircle(x, y) {
+        const circle = document.createElement('div');
+        circle.className = 'falling-circle';
+        circle.style.left = `${x}px`;
+        circle.style.top = `${y}px`;
+
+        const text = document.createElement('div');
+        text.className = 'falling-text';
+        text.innerText = letters[Math.floor(Math.random() * letters.length)];
+        circle.appendChild(text);
+
+        container.appendChild(circle);
+        return { circle, text };
+      }
+
+      function setupMatter() {
+        engine = Matter.Engine.create();
+        world = engine.world;
+        render = Matter.Render.create({
+          element: container,
+          engine: engine,
+          options: {
+            width: container.clientWidth,
+            height: container.clientHeight,
+            wireframes: false,
+            background: 'blue',
+          },
+        });
+      }
+
+      function updatePosition(circle, body) {
+        circle.style.left = `${body.position.x - circle.clientWidth / 2}px`;
+        circle.style.top = `${body.position.y - circle.clientHeight / 2}px`;
+      }
+
+      function update() {
+        const currentTime = Date.now();
+
+        if (currentTime - startTime < spawnDuration) {
+          const x = Math.random() * container.clientWidth;
+          const y = 0;
+          const { circle } = createCircle(x, y);
+
+          const circleBody = Matter.Bodies.circle(
+            x,
+            y,
+            circle.clientWidth / 2,
+            {
+              restitution: 0.5,
+              render: {
+                fillStyle: '000000',
+              },
+            }
+          );
+
+          Matter.World.add(world, [circleBody]);
+          circles.push({ circle, body: circleBody });
+        }
+
+        requestAnimationFrame(update);
+      }
+
+      function runPhysics() {
+        Matter.Engine.run(engine);
+        Matter.Render.run(render);
+
+        Matter.Events.on(engine, 'collisionStart', function (event) {
+          const pairs = event.pairs;
+
+          for (const pair of pairs) {
+            // Handle collisions here if needed
+          }
+        });
+      }
+
+      function animateCircles() {
+        for (const { circle, body } of circles) {
+          updatePosition(circle, body);
+        }
+
+        requestAnimationFrame(animateCircles);
+      }
+
+      function stackCircles() {
+        for (const { circle, body } of circles) {
+          if (
+            body.position.y >=
+            container.clientHeight - circle.clientHeight / 2
+          ) {
+            body.position.y = container.clientHeight - circle.clientHeight / 2;
+            body.velocity.y = 0;
+          }
+        }
+
+        requestAnimationFrame(stackCircles);
+      }
+
+      setupMatter();
+      runPhysics();
+      update();
+      animateCircles();
+      stackCircles();
+    </script>
+  </body>
+</html>
