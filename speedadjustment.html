@@ -16,13 +16,19 @@
       body {
         background: #ff00ff;
         height: 100vh;
+        width: 100vw;
         display: flex;
         justify-content: center;
         align-items: center;
       }
+      .wrap {
+        width: 90%;
+        max-width: 800px;
+        height: auto;
+      }
       .container {
-        width: 500px;
-        height: 600px;
+        width: 100%;
+        padding-bottom: 110%;
         background: white;
         margin: 0 auto;
         position: relative;
@@ -30,12 +36,12 @@
       .container h1 {
         font-family: 'PT Sans Narrow', sans-serif;
         font-weight: 100;
-        font-size: 60px;
+        font-size: clamp(30px, 10vw, 80px);
         padding: 0 40px;
         background-color: blue;
         display: inline-block;
         color: white;
-        margin-bottom: -30px;
+        margin-bottom: -5%;
         border-radius: 100px;
         text-align: center;
       }
@@ -60,33 +66,33 @@
       }
       #valve1,
       #valve5 {
-        width: 170px;
-        height: 240px;
+        width: 50%;
+        height: 30%;
         top: 40%;
         transform-origin: center;
       }
       #valve2,
       #valve3,
       #valve4 {
-        width: 270px;
-        height: 338px;
+        width: 60%;
+        height: 70%;
       }
       #valve5 {
         right: 0;
         animation-delay: -0.4s;
       }
       #valve2 {
-        top: 25%;
+        top: 15%;
         left: 10%;
         animation-delay: -0.3s;
       }
       #valve3 {
-        top: 25%;
+        top: 15%;
         right: 10%;
         animation-delay: -0.5s;
       }
       #valve4 {
-        top: 40%;
+        top: 30%;
         left: 23%;
         animation-delay: -0.6s;
       }
@@ -102,16 +108,18 @@
   </head>
   <body>
     <div class="menu"><a href="index.html"></a></div>
-    <div class="container">
-      <div class="flex">
-        <h1>Контроль</h1>
-        <h1>Синхронизации</h1>
+    <div class="wrap">
+      <div class="container">
+        <div class="flex">
+          <h1>Контроль</h1>
+          <h1>Синхронизации</h1>
+        </div>
+        <div class="valve" id="valve1"></div>
+        <div class="valve" id="valve2"></div>
+        <div class="valve" id="valve3"></div>
+        <div class="valve" id="valve4"></div>
+        <div class="valve" id="valve5"></div>
       </div>
-      <div class="valve" id="valve1"></div>
-      <div class="valve" id="valve2"></div>
-      <div class="valve" id="valve3"></div>
-      <div class="valve" id="valve4"></div>
-      <div class="valve" id="valve5"></div>
     </div>
   </body>
 </html>

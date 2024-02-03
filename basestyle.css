@@ -8,6 +8,7 @@
   background-image: url('./src/img/arrow.svg');
   background-size: contain;
   background-repeat: no-repeat;
+  z-index: 2;
 }
 .menu a {
   display: block;
