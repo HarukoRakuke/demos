@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=PT+Sans+Narrow&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="basestyle.css" />
+    <style>
+      * {
+        margin: 0;
+      }
+      body {
+        background: #ff00ff;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .container {
+        width: 500px;
+        height: 600px;
+        background: white;
+        margin: 0 auto;
+        position: relative;
+      }
+      .container h1 {
+        font-family: 'PT Sans Narrow', sans-serif;
+        font-weight: 100;
+        font-size: 60px;
+        padding: 0 40px;
+        background-color: blue;
+        display: inline-block;
+        color: white;
+        margin-bottom: -30px;
+        border-radius: 100px;
+        text-align: center;
+      }
+      .container h1:nth-of-type(2) {
+        width: 100%;
+      }
+      .container h1:nth-of-type(1) {
+        z-index: 1;
+      }
+      .flex {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      .valve {
+        background-image: url('src/img/valve.svg');
+        background-size: contain;
+        background-position: center;
+        background-repeat: no-repeat;
+        position: absolute;
+        animation: aroundtheworld 2s infinite linear;
+      }
+      #valve1,
+      #valve5 {
+        width: 170px;
+        height: 240px;
+        top: 40%;
+        transform-origin: center;
+      }
+      #valve2,
+      #valve3,
+      #valve4 {
+        width: 270px;
+        height: 338px;
+      }
+      #valve5 {
+        right: 0;
+        animation-delay: -0.4s;
+      }
+      #valve2 {
+        top: 25%;
+        left: 10%;
+        animation-delay: -0.3s;
+      }
+      #valve3 {
+        top: 25%;
+        right: 10%;
+        animation-delay: -0.5s;
+      }
+      #valve4 {
+        top: 40%;
+        left: 23%;
+        animation-delay: -0.6s;
+      }
+      @keyframes aroundtheworld {
+        0% {
+          rotate: 0deg;
+        }
+        100% {
+          rotate: 360deg;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="menu"><a href="index.html"></a></div>
+    <div class="container">
+      <div class="flex">
+        <h1>Контроль</h1>
+        <h1>Синхронизации</h1>
+      </div>
+      <div class="valve" id="valve1"></div>
+      <div class="valve" id="valve2"></div>
+      <div class="valve" id="valve3"></div>
+      <div class="valve" id="valve4"></div>
+      <div class="valve" id="valve5"></div>
+    </div>
+  </body>
+</html>
