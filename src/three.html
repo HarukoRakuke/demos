@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Three.js Scene</title>
+    <link rel="stylesheet" href="./css/style.css" />
+    <style>
+      body {
+        margin: 0 auto;
+        background: black;
+        display: flex;
+        height: 100vh;
+        align-items: center;
+        justify-content: center;
+      }
+      .wrap {
+        width: 50%;
+        min-width: 300px;
+        height: auto;
+        margin: 0 auto;
+      }
+      #three-container {
+        padding-bottom: 75%;
+        position: relative;
+      }
+      #three-canvas {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+    </style>
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://unpkg.com/three@v0.149.0/build/three.module.js",
+          "three/addons/": "https://unpkg.com/three@v0.149.0/examples/jsm/"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div class="menu"><a href="index.html"></a></div>
+    <div class="wrap">
+      <div id="three-container"></div>
+    </div>
+    <script type="module">
+      import * as THREE from 'three';
+      import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
+      import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+      const scene = new THREE.Scene();
+      scene.background = new THREE.Color('magenta');
+
+      const container = document.getElementById('three-container');
+
+      const camera = new THREE.PerspectiveCamera(
+        75,
+        container.clientWidth / container.clientHeight,
+        0.1,
+        1000
+      );
+
+      const renderer = new THREE.WebGLRenderer();
+      renderer.setSize(container.clientWidth, container.clientHeight * 0.85);
+      renderer.setClearColor('magenta');
+
+      container.appendChild(renderer.domElement).id = 'three-canvas';
+
+      var model;
+
+      const loader = new OBJLoader();
+      loader.load('img/ghost.obj', (obj) => {
+        model = obj;
+        model.scale.set(0.5, 0.5, 0.5);
+
+        scene.add(model);
+      });
+
+      const blueLight = new THREE.PointLight(0x0000ff, 100);
+      blueLight.position.set(-50, -50, -50);
+      scene.add(blueLight);
+
+      const blueLightSecond = new THREE.PointLight(0x0000ff, 100);
+      blueLightSecond.position.set(50, 50, 50);
+      scene.add(blueLightSecond);
+
+      const whiteRimLight = new THREE.PointLight(0xffffff, 50);
+      whiteRimLight.position.set(0, -50, 0);
+      scene.add(whiteRimLight);
+
+      camera.position.set(10, 0, 10);
+
+      // Initialize OrbitControls
+      const controls = new OrbitControls(camera, renderer.domElement);
+      controls.enableDamping = true; // an animation loop is required when either damping or auto-rotation are enabled
+      controls.dampingFactor = 0.25;
+      controls.screenSpacePanning = false;
+      controls.maxPolarAngle = Math.PI / 2; // Maximum allowed angle (90 degrees)
+      controls.minPolarAngle = Math.PI / 2; // Minimum allowed angle (90 degrees)
+
+      controls.enablePan = false;
+      controls.enableZoom = false;
+
+      const animate = function () {
+        requestAnimationFrame(animate);
+
+        if (model) {
+          model.rotation.y += 0.03;
+        }
+
+        controls.update(); // only required if controls.enableDamping = true, or if controls.autoRotate = true
+
+        renderer.render(scene, camera);
+      };
+
+      animate();
+    </script>
+  </body>
+</html>

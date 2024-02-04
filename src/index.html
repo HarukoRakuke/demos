@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+  <body></body>
+  <style>
+    * {
+      margin: 0;
+    }
+    body {
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+    }
+    .menu + div {
+      display: flex;
+      margin: 0 auto;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: center;
+      width: 60%;
+    }
+    .button {
+      border: black dashed 2px;
+      color: black;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: clamp(15px, 10vw, 50px);
+      display: inline-block;
+      padding: 10px 70px;
+      margin: 10px;
+      text-align: center;
+    }
+    .button a,
+    .button a:hover,
+    .button a:active {
+      text-decoration: none;
+      color: black;
+    }
+  </style>
+  <body>
+    <div class="menu"><a href="index.html"></a></div>
+    <div>
+      <div class="button">
+        <a href="particles.html">Плавающие частицы</a>
+      </div>
+      <div class="button">
+        <a href="textfall.html">Падающий текст</a>
+      </div>
+      <div class="button">
+        <a href="speedadjustment.html">Вращающиеся веретена</a>
+      </div>
+      <div class="button">
+        <a href="connection.html">Соединение блоков</a>
+      </div>
+      <div class="button"><a href="three.html">3D Модель</a></div>
+    </div>
+  </body>
+</html>

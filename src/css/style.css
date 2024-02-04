@@ -1,0 +1,17 @@
+.menu {
+  position: fixed;
+  top: 0;
+  right: 50%;
+  transform: translate(50px);
+  width: 100px;
+  height: 100px;
+  background-image: url('../img/arrow.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  z-index: 2;
+}
+.menu a {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
