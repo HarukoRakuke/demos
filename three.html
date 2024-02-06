@@ -32,14 +32,6 @@
         left: 0;
       }
     </style>
-    <script type="importmap">
-      {
-        "imports": {
-          "three": "https://unpkg.com/three@v0.149.0/build/three.module.js",
-          "three/addons/": "https://unpkg.com/three@v0.149.0/examples/jsm/"
-        }
-      }
-    </script>
   </head>
   <body>
     <div class="menu"><a href="index.html"></a></div>
@@ -47,9 +39,9 @@
       <div id="three-container"></div>
     </div>
     <script type="module">
-      import * as THREE from 'three';
-      import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
-      import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+      import * as THREE from '/src/three/three.module.js';
+      import { OBJLoader } from '/src/three/addons/OBJLoader.js';
+      import { OrbitControls } from '/src/three/addons/OrbitControls.js';
 
       const scene = new THREE.Scene();
       scene.background = new THREE.Color('magenta');
