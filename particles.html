@@ -13,11 +13,16 @@
       }
       body {
         background-color: blue;
+        height: 100vh;
+        display: flex;
+        align-items: center;
       }
       .container {
         position: relative;
         width: 400px;
         height: 300px;
+        border: white solid 2px;
+        margin: 0 auto;
       }
       .square {
         position: absolute;
@@ -69,8 +74,8 @@
   </head>
   <body>
     <div class="menu"><a href="index.html"></a></div>
+    <div id="lineDiv"></div>
     <div class="container" id="container">
-      <div id="lineDiv"></div>
       <div class="square" id="square1">
         <div>1</div>
         <div>корпус</div>
@@ -133,9 +138,11 @@
         });
 
         function updateLine(cursorX, cursorY) {
-          const rect1 = square1.getBoundingClientRect();
-          const x1 = rect1.left + rect1.width / 2 + window.scrollX;
-          const y1 = rect1.top + rect1.height / 2 + window.scrollY;
+          const rect1 = document
+            .getElementById('square1')
+            .getBoundingClientRect();
+          const x1 = rect1.left + rect1.width / 2;
+          const y1 = rect1.top + rect1.height / 2;
 
           const distance = Math.sqrt(
             Math.pow(cursorX - x1, 2) + Math.pow(cursorY - y1, 2)
@@ -151,10 +158,16 @@
         }
 
         function connectSquares() {
-          const x1 = square1.offsetLeft + square1.offsetWidth / 2;
-          const y1 = square1.offsetTop + square1.offsetHeight / 2;
-          const x2 = square2.offsetLeft + square2.offsetWidth / 2;
-          const y2 = square2.offsetTop + square2.offsetHeight / 2;
+          const rect1 = document
+            .getElementById('square1')
+            .getBoundingClientRect();
+          const rect2 = document
+            .getElementById('square2')
+            .getBoundingClientRect();
+          const x1 = rect1.left + rect1.width / 2;
+          const y1 = rect1.top + rect1.height / 2;
+          const x2 = rect2.left + rect2.width / 2;
+          const y2 = rect2.top + rect2.height / 2;
 
           lineDiv.style.left = x1 + 'px';
           lineDiv.style.top = y1 + 'px';
