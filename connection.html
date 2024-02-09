@@ -6,5 +6,85 @@
     <title>Document</title>
     <link rel="stylesheet" href="src/css/style.css" />
   </head>
-  <body></body>
+  <style>
+    * {
+      margin: 0 auto;
+    }
+    body {
+      display: flex;
+      align-items: center;
+      height: 100vh;
+    }
+    .container {
+      width: 400px;
+      height: 500px;
+      background-color: magenta;
+      margin: 0 auto;
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+    .slider {
+      height: 2px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      background-color: black;
+    }
+    #plugin1 {
+      background-image: url('src/img/plug_in_1.svg');
+      width: 60px;
+      height: 29px;
+      background-size: contain;
+      background-repeat: no-repeat;
+      position: absolute;
+    }
+    #plugout1 {
+      background-image: url('src/img/plug_out_1.svg');
+      width: 136px;
+      height: 29px;
+      background-size: contain;
+      background-repeat: no-repeat;
+      position: absolute;
+    }
+  </style>
+  <body>
+    <div class="container">
+      <div class="slider">
+        <div id="plugin1"></div>
+        <div id="plugout1"></div>
+      </div>
+    </div>
+    <script>
+      var in1 = document.querySelector('#plugin1');
+      var out1 = document.querySelector('#plugout1');
+      var slider = document.querySelector('.slider');
+      var containerRect = slider.getBoundingClientRect();
+      var containerWidth = containerRect.width;
+      out1.style.left = containerWidth - out1.offsetWidth + 'px';
+
+      out1.addEventListener('mousedown', down);
+      function down(e) {
+        document.addEventListener('mousemove', move);
+        document.addEventListener('mouseup', up);
+      }
+      function move(e) {
+        out1.style.position = 'absolute';
+
+        var newLeft = e.clientX - containerRect.left - out1.offsetWidth / 2;
+
+        if (newLeft <= 0 + in1.offsetWidth + in1.offsetWidth / 2) {
+          out1.style.left = 0 + in1.offsetWidth / 2 + 'px';
+        } else if (newLeft >= containerWidth - out1.offsetWidth) {
+          out1.style.left = containerWidth - out1.offsetWidth + 'px';
+        } else {
+          out1.style.left = newLeft + 'px';
+        }
+      }
+      function up() {
+        document.removeEventListener('mouvedown', down);
+        document.removeEventListener('mousemove', move);
+      }
+    </script>
+  </body>
 </html>
