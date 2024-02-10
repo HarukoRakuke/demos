@@ -22,6 +22,9 @@
       margin: 0 auto;
       position: relative;
       display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: center;
       align-items: center;
     }
     .slider {
@@ -31,15 +34,31 @@
       align-items: center;
       background-color: black;
     }
-    #plugin1 {
+    .blank {
+      height: 2px;
+      width: 100%;
+      background-color: black;
+      display: flex;
+      align-items: center;
+    }
+    .flag {
+      height: 29px;
+      width: 180px;
+      border-radius: 5px;
+      position: absolute;
+      left: 20%;
+      background-color: black;
+    }
+
+    .plugin {
       background-image: url('src/img/plug_in_1.svg');
-      width: 60px;
+      width: 64px;
       height: 29px;
       background-size: contain;
       background-repeat: no-repeat;
       position: absolute;
     }
-    #plugout1 {
+    .plugout {
       background-image: url('src/img/plug_out_1.svg');
       width: 136px;
       height: 29px;
@@ -47,45 +66,169 @@
       background-repeat: no-repeat;
       position: absolute;
     }
+    .slider:nth-of-type(odd) .plugin {
+      background-image: url('src/img/plug_in_2.svg');
+      width: 88px;
+    }
+    .slider:nth-of-type(3n - 1) .plugin {
+      width: 133px;
+      background-image: url('src/img/plug_in_4.svg');
+    }
+
+    .slider:nth-of-type(5n - 1) .plugin {
+      background-image: url('src/img/plug_in_3.svg');
+      width: 50px;
+    }
+    .slider:nth-of-type(even) .plugout {
+      background-image: url('src/img/plug_out_2.svg');
+      width: 80px;
+    }
+    .slider:nth-of-type(3n - 1) .plugout {
+      background-image: url('src/img/plug_out_3.svg');
+      width: 50px;
+    }
+    .slider:nth-of-type(5n - 1) .plugout {
+      background-image: url('src/img/plug_out_4.svg');
+      width: 100px;
+    }
   </style>
   <body>
     <div class="menu"><a href="index.html"></a></div>
     <div class="container">
       <div class="slider">
-        <div id="plugin1"></div>
-        <div id="plugout1"></div>
+        <div class="plugin"></div>
+        <div class="plugout"></div>
+      </div>
+      <div class="slider">
+        <div class="plugin"></div>
+        <div class="plugout"></div>
+      </div>
+      <div class="slider">
+        <div class="plugin"></div>
+        <div class="plugout"></div>
+      </div>
+      <div class="blank">
+        <div class="flag"></div>
+      </div>
+      <div class="slider">
+        <div class="plugin"></div>
+        <div class="plugout"></div>
+      </div>
+      <div class="slider">
+        <div class="plugin"></div>
+        <div class="plugout"></div>
+      </div>
+      <div class="slider">
+        <div class="plugin"></div>
+        <div class="plugout"></div>
+      </div>
+      <div class="blank">
+        <div class="flag"></div>
+      </div>
+      <div class="slider">
+        <div class="plugin"></div>
+        <div class="plugout"></div>
+      </div>
+      <div class="slider">
+        <div class="plugin"></div>
+        <div class="plugout"></div>
+      </div>
+      <div class="slider">
+        <div class="plugin"></div>
+        <div class="plugout"></div>
+      </div>
+      <div class="blank">
+        <div class="flag"></div>
+      </div>
+      <div class="blank">
+        <div class="flag"></div>
+      </div>
+      <div class="slider">
+        <div class="plugin"></div>
+        <div class="plugout"></div>
+      </div>
+      <div class="slider">
+        <div class="plugin"></div>
+        <div class="plugout"></div>
       </div>
     </div>
     <script>
-      var in1 = document.querySelector('#plugin1');
-      var out1 = document.querySelector('#plugout1');
-      var slider = document.querySelector('.slider');
-      var containerRect = slider.getBoundingClientRect();
-      var containerWidth = containerRect.width;
-      out1.style.left = containerWidth - out1.offsetWidth + 'px';
+      var blanks = document.querySelectorAll('.blank');
 
-      out1.addEventListener('mousedown', down);
-      function down(e) {
-        document.addEventListener('mousemove', move);
-        document.addEventListener('mouseup', up);
-      }
-      function move(e) {
-        out1.style.position = 'absolute';
+      blanks.forEach(function (blank) {
+        var flag = blank.querySelector('.flag');
 
-        var newLeft = e.clientX - containerRect.left - out1.offsetWidth / 2;
-
-        if (newLeft <= 0 + in1.offsetWidth + in1.offsetWidth / 2) {
-          out1.style.left = 0 + in1.offsetWidth / 2 + 'px';
-        } else if (newLeft >= containerWidth - out1.offsetWidth) {
-          out1.style.left = containerWidth - out1.offsetWidth + 'px';
-        } else {
-          out1.style.left = newLeft + 'px';
+        function randomInt(min, max) {
+          return Math.floor(Math.random() * (max - min + 1) + min);
         }
-      }
-      function up() {
-        document.removeEventListener('mouvedown', down);
-        document.removeEventListener('mousemove', move);
-      }
+
+        var randomValue3 = randomInt(50, 200);
+        var randomValue4 = randomInt(50, 100);
+
+        flag.style.width = randomValue3 + 'px';
+        flag.style.left = randomValue4 + '%';
+        flag.style.transform = `translate(${-randomValue3}px)`;
+      });
+
+      var sliders = document.querySelectorAll('.slider');
+
+      sliders.forEach(function (slider) {
+        var in1 = slider.querySelector('.plugin');
+        var out1 = slider.querySelector('.plugout');
+
+        function randomInt(min, max) {
+          return Math.floor(Math.random() * (max - min + 1) + min);
+        }
+
+        var randomValue1 = randomInt(0, 20);
+        var randomValue2 = randomInt(0, 100);
+
+        var sliderRect = slider.getBoundingClientRect();
+        var sliderWidth = sliderRect.width;
+
+        var inRight = in1.getBoundingClientRect().right - sliderRect.left;
+        var inWidth = in1.offsetWidth;
+
+        out1.style.left =
+          sliderRect.width - out1.offsetWidth - randomValue2 + 'px';
+        in1.style.left = randomValue1 + '%';
+
+        var inRight = in1.getBoundingClientRect().right - sliderRect.left;
+        var inWidth = in1.offsetWidth;
+
+        out1.addEventListener('mousedown', down);
+
+        function down(e) {
+          document.addEventListener('mousemove', move);
+          document.addEventListener('mouseup', up);
+        }
+
+        function move(e) {
+          out1.style.position = 'absolute';
+          updatePosition(e.clientX);
+        }
+
+        function updatePosition(clientX) {
+          var sliderRect = slider.getBoundingClientRect();
+          var sliderWidth = sliderRect.width;
+
+          var newLeft = clientX - sliderRect.left - inRight;
+          console.log(newLeft);
+          if (newLeft <= 0 + inRight / 2) {
+            out1.style.left = 0 + inRight - 20 + 'px';
+          } else if (newLeft >= sliderWidth - out1.offsetWidth) {
+            out1.style.left = sliderWidth - out1.offsetWidth + 'px';
+          } else {
+            out1.style.left =
+              clientX - sliderRect.left - out1.offsetWidth / 2 + 'px';
+          }
+        }
+
+        function up() {
+          document.removeEventListener('mousemove', move);
+          document.removeEventListener('mouseup', up);
+        }
+      });
     </script>
   </body>
 </html>
