@@ -44,7 +44,7 @@
     .flag {
       height: 29px;
       width: 180px;
-      border-radius: 5px;
+      border-radius: 3px;
       position: absolute;
       left: 20%;
       background-color: black;
@@ -71,7 +71,7 @@
       width: 88px;
     }
     .slider:nth-of-type(3n - 1) .plugin {
-      width: 133px;
+      width: 125px;
       background-image: url('src/img/plug_in_4.svg');
     }
 
@@ -155,19 +155,18 @@
     <script>
       var blanks = document.querySelectorAll('.blank');
 
+      function randomInt(min, max) {
+        return Math.floor(Math.random() * (max - min + 1) + min);
+      }
+
       blanks.forEach(function (blank) {
         var flag = blank.querySelector('.flag');
 
-        function randomInt(min, max) {
-          return Math.floor(Math.random() * (max - min + 1) + min);
-        }
+        var offsetFlag = randomInt(50, 200);
 
-        var randomValue3 = randomInt(50, 200);
-        var randomValue4 = randomInt(50, 100);
-
-        flag.style.width = randomValue3 + 'px';
-        flag.style.left = randomValue4 + '%';
-        flag.style.transform = `translate(${-randomValue3}px)`;
+        flag.style.width = offsetFlag + 'px';
+        flag.style.left = `${randomInt(50, 100)}%`;
+        flag.style.transform = `translate(${-offsetFlag}px)`;
       });
 
       var sliders = document.querySelectorAll('.slider');
@@ -175,23 +174,12 @@
       sliders.forEach(function (slider) {
         var in1 = slider.querySelector('.plugin');
         var out1 = slider.querySelector('.plugout');
-
-        function randomInt(min, max) {
-          return Math.floor(Math.random() * (max - min + 1) + min);
-        }
-
-        var randomValue1 = randomInt(0, 20);
-        var randomValue2 = randomInt(0, 100);
-
         var sliderRect = slider.getBoundingClientRect();
         var sliderWidth = sliderRect.width;
 
-        var inRight = in1.getBoundingClientRect().right - sliderRect.left;
-        var inWidth = in1.offsetWidth;
-
         out1.style.left =
-          sliderRect.width - out1.offsetWidth - randomValue2 + 'px';
-        in1.style.left = randomValue1 + '%';
+          sliderRect.width - out1.offsetWidth - randomInt(0, 100) + 'px';
+        in1.style.left = randomInt(0, 20) + '%';
 
         var inRight = in1.getBoundingClientRect().right - sliderRect.left;
         var inWidth = in1.offsetWidth;
