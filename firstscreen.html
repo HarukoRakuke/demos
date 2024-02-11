@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="src/css/style.css" />
+  </head>
+  <style>
+    * {
+      margin: 0 auto;
+    }
+    body {
+      background-color: black;
+      overflow: hidden;
+    }
+    section {
+      width: 100vw;
+      height: 100vh;
+      overflow-x: hidden;
+      background-image: url('src/img/white_pixels.svg');
+      background-position: center;
+      background-size: contain;
+    }
+    .movingcontainer {
+      animation: moveside 5s ease alternate infinite;
+      position: absolute;
+      mix-blend-mode: difference;
+    }
+    .danger {
+      height: 150vh;
+      width: 150vh;
+      max-width: 150vw;
+      background-image: url('src/img/sign_danger.svg');
+      background-position: center;
+      background-size: contain;
+      background-repeat: no-repeat;
+      animation: movearound 8s ease alternate infinite;
+    }
+    .grid {
+      width: 40vw;
+      height: 40vh;
+      background-image: url('src/img/grid.svg');
+      background-size: contain;
+      background-repeat: repeat;
+      position: absolute;
+      right: 10%;
+      top: 0;
+    }
+    @keyframes movearound {
+      0% {
+        transform: translateY(0%);
+      }
+      50% {
+        transform: translateY(-30%);
+      }
+      100% {
+        transform: translateY(30%);
+      }
+    }
+    @keyframes movearound2 {
+      0% {
+        transform: translateY(50%) translateX(50%) rotate(30deg);
+      }
+      50% {
+        transform: rotate(-10deg);
+      }
+      100% {
+        transform: translateY(-70%) translateX(50%);
+      }
+    }
+    @keyframes moveside {
+      0% {
+        transform: translateX(0%);
+      }
+      50% {
+        transform: translateX(50%);
+      }
+      100% {
+        transform: translateX(-50%);
+      }
+    }
+    @keyframes moveanotherside {
+      0% {
+        transform: translateX(30%);
+      }
+      100% {
+        transform: translateX(50%);
+        transform: translateY(50%);
+      }
+    }
+
+    .blue {
+      height: 80vh;
+      width: 30vw;
+      min-width: 200px;
+      background-image: url('src/img/blue_pixels.svg');
+      position: absolute;
+      background-size: contain;
+      background-repeat: no-repeat;
+      left: 30%;
+      animation: movearound 8s ease alternate infinite;
+    }
+    .circle {
+      height: 20vw;
+      width: 25vw;
+      min-width: 100px;
+      background-image: url('src/img/blue_circle.svg');
+      position: absolute;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: contain;
+      top: -20%;
+      transform-origin: top right;
+      right: 70%;
+      animation: movearound2 2s ease alternate-reverse infinite;
+    }
+    .blue_container {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      animation: moveanotherside linear 5s alternate-reverse infinite;
+    }
+    .pink {
+      position: absolute;
+      width: 35%;
+      height: 35%;
+      background-color: magenta;
+      top: 0;
+      left: 0;
+    }
+    .shake,
+    .shake2 {
+      position: absolute;
+      animation: shake 0.01s infinite alternate-reverse;
+    }
+    .shake {
+      width: 30%;
+      height: 40%;
+      min-width: 120px;
+      top: 0;
+      left: 20%;
+    }
+    .shake2 {
+      width: 30%;
+      height: 40%;
+      min-width: 120px;
+      bottom: 10%;
+      left: 50%;
+    }
+    .first_syllable {
+      background-image: url(src/img/syllable1.svg);
+      background-size: contain;
+      background-repeat: no-repeat;
+      width: 100%;
+      height: 100%;
+      animation: xmove 1s ease-in-out alternate infinite;
+    }
+    .second_syllable {
+      background-image: url(src/img/syllable2.svg);
+      background-size: contain;
+      background-repeat: no-repeat;
+      width: 100%;
+      height: 100%;
+      animation: xmove 1s ease-in-out alternate-reverse infinite;
+    }
+    @keyframes xmove {
+      100% {
+        transform: translateX(-50%);
+      }
+    }
+    @keyframes shake {
+      0% {
+        transform: translateY(-2%);
+        transform: translateX(0%);
+      }
+      100% {
+        transform: translateY(0%);
+        transform: translateX(-2%);
+      }
+    }
+  </style>
+  <body>
+    <div class="menu"><a href="index.html"></a></div>
+    <section id="firstscreen">
+      <div class="grid"></div>
+      <div class="movingcontainer"><div class="danger"></div></div>
+      <div class="pink"></div>
+      <div class="blue_container">
+        <div class="blue"></div>
+        <div class="circle"></div>
+      </div>
+      <div class="shake">
+        <div class="first_syllable"></div>
+      </div>
+      <div class="shake2">
+        <div class="second_syllable"></div>
+      </div>
+    </section>
+  </body>
+</html>
