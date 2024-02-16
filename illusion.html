@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Color Changing Box</title>
+    <link rel="stylesheet" href="./src/css/style.css" />
+    <style>
+      @property --c {
+        syntax: '<color>';
+        inherits: false;
+        initial-value: red;
+      }
+
+      .box {
+        --c: red; /* needed for firefox to have a valid output */
+        cursor: pointer;
+        width: 250px;
+        height: 200px;
+        margin: 15px;
+        display: inline-block;
+        transition: --c 0.5s;
+        background: radial-gradient(var(--c), blue);
+      }
+
+      body {
+        text-align: center;
+        display: flex;
+        height: 100vh;
+        justify-content: center;
+        align-items: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="menu"><a href="index.html"></a></div>
+    <div class="box" id="box"></div>
+
+    <script>
+      const box = document.getElementById('box');
+      let isGreen = false;
+
+      function changeColor() {
+        if (isGreen) {
+          box.style.setProperty('--c', 'red');
+        } else {
+          box.style.setProperty('--c', 'green');
+        }
+        isGreen = !isGreen;
+      }
+
+      setInterval(changeColor, 1000);
+
+      // в душе не чаю почему не написала это через keyframes
+    </script>
+  </body>
+</html>

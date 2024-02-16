@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./src/css/reset.css" />
+    <link rel="stylesheet" href="./src/css/style.css" />
+    <style>
+      @font-face {
+        font-family: 'Captured'; /* название шрифта */
+        src: url(./src/fonts/Captured-Regular_5.ttf); /* ссылка на файл */
+      }
+      body {
+        display: flex;
+        justify-content: center;
+        height: 100vh;
+        align-items: center;
+      }
+      .letters {
+        width: 20vw;
+        max-width: 600px;
+        display: flex;
+        background-color: blue;
+        justify-content: space-between;
+      }
+      p {
+        transform: scale(-1, 1);
+        font-family: 'Captured';
+        font-size: clamp(50px, 10vw, 350px);
+        color: white;
+        font-weight: 100;
+        display: inline-block;
+        transition: 1s;
+      }
+      p:hover {
+        transform: scale(1) scale(-1, 1);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="menu"><a href="index.html"></a></div>
+    <div class="letters">
+      <p>С</p>
+      <p>В</p>
+      <p>А</p>
+    </div>
+  </body>
+</html>
