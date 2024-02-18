@@ -6,7 +6,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
     />
-    <link rel="stylesheet" href="src/css/style.css" />
+    <link rel="stylesheet" href="./src/css/style.css" />
     <style>
       * {
         margin: 0;
@@ -14,8 +14,14 @@
       body {
         background-color: blue;
         height: 100vh;
+        width: 400px;
         display: flex;
         align-items: center;
+        flex-wrap: wrap;
+        align-content: center;
+      }
+      h1 {
+        color: white;
       }
       .container {
         position: relative;
@@ -74,6 +80,7 @@
   </head>
   <body>
     <div class="menu"><a href="index.html"></a></div>
+    <h1>Соедините 1 корпус со 2, протянув между ними линию</h1>
     <div id="lineDiv"></div>
     <div class="container" id="container">
       <div class="square" id="square1">

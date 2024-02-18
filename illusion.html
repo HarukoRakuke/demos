@@ -38,15 +38,15 @@
 
     <script>
       const box = document.getElementById('box');
-      let isGreen = false;
+      let isWhite = false;
 
       function changeColor() {
-        if (isGreen) {
+        if (isWhite) {
           box.style.setProperty('--c', 'red');
         } else {
-          box.style.setProperty('--c', 'green');
+          box.style.setProperty('--c', 'white');
         }
-        isGreen = !isGreen;
+        isWhite = !isWhite;
       }
 
       setInterval(changeColor, 1000);

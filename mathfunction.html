@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title></title>
+    <link rel="stylesheet" href="./src/css/style.css" />
+    <style>
+      body {
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        align-content: center;
+        flex-wrap: wrap;
+        width: 400px;
+        margin: 0 auto;
+        background-color: blue;
+      }
+
+      canvas {
+        border: 1px solid white;
+        margin: 0 auto;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="menu"><a href="index.html"></a></div>
+    <h1>Наведите мышку на график и покрутите колесиком</h1>
+    <canvas id="plot" width="400" height="400"></canvas>
+
+    <script>
+      // Get the canvas element
+      var canvas = document.getElementById('plot');
+      var ctx = canvas.getContext('2d');
+
+      // Define the function
+      function f(x) {
+        // Solve for y using numerical methods (e.g., Newton's method)
+        return x * Math.sin(Math.log(x));
+      }
+
+      // Set up initial scaling factors
+      var scaleX = 40; // pixels per unit on x-axis
+      var scaleY = 40; // pixels per unit on y-axis
+      var offsetX = canvas.width / 2; // x-axis offset from left
+      var offsetY = canvas.height / 2; // y-axis offset from top
+
+      // Draw function
+      function drawFunction() {
+        // Clear canvas
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Draw axes
+        ctx.beginPath();
+        ctx.moveTo(0, offsetY);
+        ctx.lineTo(canvas.width, offsetY);
+        ctx.moveTo(offsetX, 0);
+        ctx.lineTo(offsetX, canvas.height);
+        ctx.strokeStyle = 'white'; // Set color to black
+        ctx.stroke();
+
+        // Plot the function
+        ctx.beginPath();
+        ctx.strokeStyle = 'white'; // Set color to blue
+        ctx.lineWidth = 2;
+        for (var pixelX = 0; pixelX < canvas.width; pixelX++) {
+          var x = (pixelX - offsetX) / scaleX;
+          var y = f(x);
+          var pixelY = -y * scaleY + offsetY;
+          if (pixelX === 0) {
+            ctx.moveTo(pixelX, pixelY);
+          } else {
+            ctx.lineTo(pixelX, pixelY);
+          }
+        }
+        ctx.stroke();
+      }
+
+      // Initial draw
+      drawFunction();
+
+      // Add event listener for scaling using the mouse wheel
+      canvas.addEventListener('wheel', function (event) {
+        event.preventDefault();
+        var delta = event.deltaY || event.detail || event.wheelDelta;
+        if (delta < 0) {
+          // Zoom in
+          scaleX *= 1.1;
+          scaleY *= 1.1;
+        } else {
+          // Zoom out
+          scaleX /= 1.1;
+          scaleY /= 1.1;
+        }
+        // Redraw function with new scale
+        drawFunction();
+      });
+    </script>
+  </body>
+</html>
