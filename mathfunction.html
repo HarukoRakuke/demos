@@ -19,6 +19,7 @@
 
       canvas {
         border: 1px solid white;
+
         margin: 0 auto;
       }
     </style>
@@ -30,7 +31,7 @@
 
     <script>
       // Get the canvas element
-      var canvas = document.getElementById('plot');
+      var canvas = document.querySelector('#plot');
       var ctx = canvas.getContext('2d');
 
       // Define the function
@@ -51,27 +52,27 @@
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
         // Draw axes
-        ctx.beginPath();
-        ctx.moveTo(0, offsetY);
-        ctx.lineTo(canvas.width, offsetY);
-        ctx.moveTo(offsetX, 0);
-        ctx.lineTo(offsetX, canvas.height);
-        ctx.strokeStyle = 'white'; // Set color to black
-        ctx.stroke();
+        ctx.beginPath(); //говорим, что начинаем рисовать
+        ctx.moveTo(0, offsetY); //точка отсчета горизонтальной оси, 0 по x, 200 (в данном случае) по y
+        ctx.lineTo(canvas.width, offsetY); //из точки отсчета начинаем вести линию, по иксу она идет вправо по всей ширине контейнера, а по Y остается на том же месте, т.к. 2 параметр не поменялся
+        ctx.moveTo(offsetX, 0); // точка отсчета вертикальной оси, 200 по x, 0 по y
+        ctx.lineTo(offsetX, canvas.height); // ведем из точки отсчета ведем линию вниз по всей высоте конетейнера, при этом координаты X остаются теми же
+        ctx.strokeStyle = 'white'; // говорим, какого цвета/начертания линия
+        ctx.stroke(); //проводим "рендер" линии, чтобы она появилась
 
         // Plot the function
-        ctx.beginPath();
-        ctx.strokeStyle = 'white'; // Set color to blue
-        ctx.lineWidth = 2;
+        ctx.beginPath(); //говорим, что начинаем рисовать
+        ctx.strokeStyle = 'white'; // то, что мы рисуем - белого цвета
+        ctx.lineWidth = 2; //линия будет шириной 2 пикселя
         for (var pixelX = 0; pixelX < canvas.width; pixelX++) {
+          // pixelX++ просто означает pixelX+1, мы тем самым создаем loop, с помощью которого говорим, что "for" должен выполняться для каждого X-пикселя по ширине кэнваса
           var x = (pixelX - offsetX) / scaleX;
+          // здесь мы адаптируем его под местоположение наших координат
           var y = f(x);
-          var pixelY = -y * scaleY + offsetY;
-          if (pixelX === 0) {
-            ctx.moveTo(pixelX, pixelY);
-          } else {
-            ctx.lineTo(pixelX, pixelY);
-          }
+          // считаем тот Y, который нужен для 1 конкретного пикселя
+          var pixelY = y * scaleY + offsetY;
+          // адаптируем Y под местоположение координат
+          ctx.lineTo(pixelX, pixelY); //соединяем прошлый пиксель с новым
         }
         ctx.stroke();
       }
@@ -81,11 +82,10 @@
 
       // Add event listener for scaling using the mouse wheel
       canvas.addEventListener('wheel', function (event) {
-        event.preventDefault();
-        var delta = event.deltaY || event.detail || event.wheelDelta;
+        var delta = event.deltaY;
         if (delta < 0) {
           // Zoom in
-          scaleX *= 1.1;
+          scaleX *= 1.1; // эквивалетно scaleX = scaleX * 1.1
           scaleY *= 1.1;
         } else {
           // Zoom out
