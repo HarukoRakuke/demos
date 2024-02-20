@@ -19,7 +19,6 @@
 
       canvas {
         border: 1px solid white;
-
         margin: 0 auto;
       }
     </style>
@@ -59,11 +58,10 @@
         ctx.lineTo(offsetX, canvas.height); // ведем из точки отсчета ведем линию вниз по всей высоте конетейнера, при этом координаты X остаются теми же
         ctx.strokeStyle = 'white'; // говорим, какого цвета/начертания линия
         ctx.stroke(); //проводим "рендер" линии, чтобы она появилась
-
         // Plot the function
         ctx.beginPath(); //говорим, что начинаем рисовать
         ctx.strokeStyle = 'white'; // то, что мы рисуем - белого цвета
-        ctx.lineWidth = 2; //линия будет шириной 2 пикселя
+        ctx.lineWidth = 4; //линия будет шириной 2 пикселя
         for (var pixelX = 0; pixelX < canvas.width; pixelX++) {
           // pixelX++ просто означает pixelX+1, мы тем самым создаем loop, с помощью которого говорим, что "for" должен выполняться для каждого X-пикселя по ширине кэнваса
           var x = (pixelX - offsetX) / scaleX;
